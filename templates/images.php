@@ -19,7 +19,7 @@
 
 
 <div class="row mbottom-30">
-    <div class="col-xs-12">
+    <div class="col">
         <form id="upload-form" action="" method="post">
         	<input type="text" name="form-action" id="form-action" class="form-control hidden" value="search">
             <div class="input-group">
