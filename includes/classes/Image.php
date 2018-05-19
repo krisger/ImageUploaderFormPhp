@@ -39,6 +39,18 @@
             return $results;
         }
         
+        function selectImagesByKeyWord(string $keyWord){
+            $db = Database::getInstance();
+            $results = $db->selectRecord(
+                'Images',
+                "ImageName, ImageUrl",
+                ["ImageName"],
+                ["Like"],
+                ["%$keyWord%"]
+                );
+            return $results;
+        }
+        
         function moveImage(string $uploadDir, $imageFile, array $allowedExt){
             if(in_array($this->extension, $allowedExt)){
                 

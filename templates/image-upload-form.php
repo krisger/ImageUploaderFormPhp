@@ -2,42 +2,43 @@
 $error = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if(empty($_POST["form-action"])){
+        $imageUrl = $_FILES["image-file"] ?? '';
+        $imageName = $_POST["image-name"] ?? '';
+        $externalUrl = $_POST["google-image-file"];
+        
+        $gImageId = $_POST["google-image-id"] ?? '';
+        $gImageName = $_POST["google-image-name"] ?? '';
+        $gImageMimeType = $_POST["google-image-mime-type"] ?? '';
+        $gOuthToken = $_POST["google-outh-token"] ?? '';
     
-    $imageUrl = $_FILES["image-file"] ?? '';
-    $imageName = $_POST["image-name"] ?? '';
-    $externalUrl = $_POST["google-image-file"];
-    
-    $gImageId = $_POST["google-image-id"] ?? '';
-    $gImageName = $_POST["google-image-name"] ?? '';
-    $gImageMimeType = $_POST["google-image-mime-type"] ?? '';
-    $gOuthToken = $_POST["google-outh-token"] ?? '';
-
-    if(!empty($externalUrl) && !empty($imageName)){ // In the future replace validation with more advanced Class Validation
-        
-        $uploadDir = FULL_IMAGES_PATH;
-        $image = new Image();
-        
-        $image->uploadGoogleImage($uploadDir, $gImageId, $gImageName, $gImageMimeType, $gOuthToken);
-        $image->addName($imageName);
-        $image->insertImage();
-        
-        //Prevents from resubmission
-        header("Location:" . $_SERVER['PHP_SELF']);
-        
-    }else if(!empty($imageName) && !empty($imageUrl)){
-        
-        $uploadDir = SHORT_IMAGES_PATH;
-        $fileUpload = $uploadDir.basename($imageUrl['name']);
-        
-        $image = new Image();
-        $image->addExtension(strtolower(pathinfo($imageUrl['name'], PATHINFO_EXTENSION)));
-        if($image->moveImage($uploadDir, $imageUrl, ALLOWED_IMAGE_TYPES)){
+        if(!empty($externalUrl) && !empty($imageName)){ // In the future replace validation with more advanced Class Validation
+            
+            $uploadDir = FULL_IMAGES_PATH;
+            $image = new Image();
+            
+            $image->uploadGoogleImage($uploadDir, $gImageId, $gImageName, $gImageMimeType, $gOuthToken);
             $image->addName($imageName);
-            $image->addUrl($imageUrl["name"]);
             $image->insertImage();
             
             //Prevents from resubmission
-            header("Location:" . $_SERVER['PHP_SELF']);   
+            header("Location:" . $_SERVER['PHP_SELF']);
+            
+        }else if(!empty($imageName) && !empty($imageUrl)){
+            
+            $uploadDir = SHORT_IMAGES_PATH;
+            $fileUpload = $uploadDir.basename($imageUrl['name']);
+            
+            $image = new Image();
+            $image->addExtension(strtolower(pathinfo($imageUrl['name'], PATHINFO_EXTENSION)));
+            if($image->moveImage($uploadDir, $imageUrl, ALLOWED_IMAGE_TYPES)){
+                $image->addName($imageName);
+                $image->addUrl($imageUrl["name"]);
+                $image->insertImage();
+                
+                //Prevents from resubmission
+                header("Location:" . $_SERVER['PHP_SELF']);   
+            }
         }
     }else{
         $error = true;

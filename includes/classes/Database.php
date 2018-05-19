@@ -15,15 +15,35 @@
             $this->_connection = new pdo("sqlite:" . DB_PATH);
         }
         
-        public function selectRecord($table, $rowNames){
+        public function selectRecord(string $table, string $fields, array $conditionFields = [], array $conditionOperators = [], array $conditionValues = []){
             //Function any time could be upgraded
+            $countFields = sizeof($conditionFields);
             
-            $sql = "SELECT " . $rowNames ." FROM " .$table. ""; 
+            $sql = "SELECT " . $fields ." FROM " .$table. ""; 
+            if($countFields > 0){
+                $sql .= " WHERE ";
+                for($i = 0; $i < $countFields; $i++){
+                    if($i !== 0){
+                        $sql .= "AND ";
+                    }
+                    $sql .= $conditionFields[$i];
+                    $sql .= " ";
+                    $sql .=  $conditionOperators[$i];
+                    $sql .= " ";
+                    $sql .=  ":" . $conditionFields[$i];; 
+                }
+            }
             
-            $query = $this->_connection->prepare($sql);
+            $query = $this->_connection->prepare($sql); 
+            if($countFields > 0){
+                for($i = 0; $i < $countFields; $i++){
+                    $query->bindValue(":" . $conditionFields[$i], $conditionValues[$i], PDO::PARAM_STR);
+                }
+            }
+            
             $query->execute();
             
-            $result = $query->fetchAll();         
+            $result = $query->fetchAll(); 
             return $result;
         }
         
