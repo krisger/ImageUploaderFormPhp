@@ -1,4 +1,4 @@
-<h2>Image Upload Form (Integrated With Google Drive</h2>
+<h2>Image Upload Form (Integrated With Google Drive)</h2>
 <p><strong>Descrtiption:</strong> simple image upload form with search by image keyword and integrated google drive service</p>
 <p>Project is ready to run when you upload code to server with php 7.2.5 or newer.</p>
 <h2>In This Project Used:</h2>
