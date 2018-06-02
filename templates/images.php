@@ -1,16 +1,21 @@
 <?php
     $count = 0;
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST["form-action"])) {
-            if($_POST["form-action"] == "search"){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST["form-action"])) 
+    {
+            if($_POST["form-action"] == "search")
+            {
                 $keyWord = $_POST["search-keyword"];
-                if(!empty($keyWord)){
+                
+                if(!empty($keyWord))
+                {
                     $Images = new Image();
                     $getImages = $Images->selectImagesByKeyWord($keyWord);
                     $count = count($getImages);
                 }
             }
-    }else{
-       
+    }
+    else
+    {
         $Images = new Image();
         $getImages = $Images->selectImages();
         $count = count($getImages);
@@ -35,10 +40,11 @@
     </div>
 </div>
 <div class="row">
-
     <?php
-        if($count > 0){
-            foreach($getImages as $image){ 
+        if($count > 0)
+        {
+            foreach($getImages as $image)
+            { 
     ?>
         	<div class="col-xs-12 col-sm-6 col-md-4">
         		<div class="image-item">
@@ -52,7 +58,9 @@
        		</div>
 	<?php 
             } 
-        }else{
+        }
+        else
+        {
     ?>
     	<div class="col">
     		<h5>No Images Uploaded</h5>
