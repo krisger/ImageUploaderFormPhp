@@ -3,8 +3,8 @@
 <p>Project is ready to run when you upload code to server with php 7.2.5 or newer.</p>
 <h2>In This Project Used:</h2>
 <p><strong>Google Drive Api </strong><a href="https://developers.google.com/drive/api/v3/about-sdk">https://developers.google.com/drive/api/v3/about-sdk</a></p>
-<p><strong>PHP version:</strong> php 7.2.5</p>
-<p><strong>Local machineL</strong> used newest xampp 7.2.5 / PHP 7.2.5</p>
+<p><strong>PHP version:</strong> 7.2.5</p>
+<p><strong>Local machine:</strong> used newest xampp 7.2.5 / PHP 7.2.5</p>
 <p><strong>Database:</strong> SQLITE</p>
 <h2>Setup Instructions</h2>
 <p>Database located in project ROOT folder as "myproj.db" file.</p>
